@@ -101,8 +101,11 @@ MonoBehaviour:
   mediumBrokenPrefab: {fileID: 6458992972774995580, guid: d395837328c784c6eb2599ef3ec67336, type: 3}
   largeBrokenPrefab: {fileID: 6050908112554697871, guid: 14d2cabdd479546019ddcf85fdc375ae, type: 3}
   correctController: 0
+  leftMaterial: {fileID: 2100000, guid: 2a91b892770513643a0455524296c4f3, type: 2}
+  rightMaterial: {fileID: 2100000, guid: a8484db90b582ce4fb063d38b0b821e3, type: 2}
   basePoints: 50
   debugCanvas: {fileID: 0}
+  travelSpeed: 3
 --- !u!65 &1331214583988009909
 BoxCollider:
   m_ObjectHideFlags: 0

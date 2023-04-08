@@ -8,14 +8,23 @@ public class IcoShapeBehavior : MonoBehaviour
     public GameObject mediumBrokenPrefab;
     public GameObject largeBrokenPrefab;
     public OVRInput.Controller correctController;
+    public Material leftMaterial;
+    public Material rightMaterial;
     public int basePoints = 50;
     public DebugCanvasBehavior debugCanvas;
+    public float travelSpeed = 0.1f;
+
 
     MeshRenderer _renderer;
 
     private void Awake()
     {
         _renderer = GetComponent<MeshRenderer>();
+    }
+
+    private void Update()
+    {
+        Move();
     }
 
     // The colliding controller will call this method on collision
@@ -89,7 +98,7 @@ public class IcoShapeBehavior : MonoBehaviour
         }
     }
 
-    private void DestroyGameObject()
+    public void DestroyGameObject()
     {
         Destroy(gameObject);
     }
@@ -100,5 +109,26 @@ public class IcoShapeBehavior : MonoBehaviour
         {
             debugCanvas.Debug(message);
         }
+    }
+
+    // Public method to assign which gem type this is
+    public void AssignGem(OVRInput.Controller controller)
+    {
+        if (controller == OVRInput.Controller.LTouch)
+        {
+            correctController = controller;
+            _renderer.material = leftMaterial;
+        }
+        else if (controller == OVRInput.Controller.RTouch)
+        {
+            correctController = controller;
+            _renderer.material = rightMaterial;
+        }
+    }
+
+    // move the target towards the end of the platform
+    public void Move()
+    {
+        transform.Translate(Vector3.forward * Time.deltaTime * travelSpeed);
     }
 }
