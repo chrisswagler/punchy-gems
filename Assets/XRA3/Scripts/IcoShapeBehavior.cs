@@ -16,24 +16,35 @@ public class IcoShapeBehavior : MonoBehaviour
 
 
     MeshRenderer _renderer;
+    Rigidbody _rigidbody;
+    bool stopMove = false;
 
     private void Awake()
     {
         _renderer = GetComponent<MeshRenderer>();
+        _rigidbody = GetComponent<Rigidbody>();
+        stopMove = false;
     }
 
     private void Update()
     {
-        Move();
+        if (!stopMove)
+        {
+            Move();
+        }
     }
 
     // The colliding controller will call this method on collision
     public void HandleCollision(OVRInput.Controller collidingController)
     {
+        stopMove = true;
         // Check if the controller is not the correct one
         if (collidingController != correctController)
         {
-            //
+            // Deduct points
+            GameObject.FindObjectOfType<LevelManager>().UpdateScore(-1 * basePoints);
+            Invoke("DestroyGameObject", 2.0f);
+            _rigidbody.AddForce(Vector3.up * 2, ForceMode.Impulse);
             print("incorrect controller");
             Debug("incorrect controller");
             return;
@@ -46,15 +57,21 @@ public class IcoShapeBehavior : MonoBehaviour
         float controllerVelocityMagnitude = controllerVelocity.magnitude;
         print("controller v mag: " + controllerVelocityMagnitude);
         Debug("controller v mag: " + controllerVelocityMagnitude);
-        int points = basePoints + (int)(10 * controllerVelocityMagnitude);
 
         // The punch was too weak
         if (controllerVelocityMagnitude < 0.5)
         {
-            
+            Invoke("DestroyGameObject", 2.0f);
+            _rigidbody.AddForce(-1 * controllerVelocity, ForceMode.Impulse);
+            return;
         }
+
+        // Update points
+        int points = basePoints + (int)(10 * controllerVelocityMagnitude);
+        GameObject.FindObjectOfType<LevelManager>().UpdateScore(points);
+        
         // The punch was aight
-        else if (controllerVelocityMagnitude < 1)
+        if (controllerVelocityMagnitude < 1)
         {
             // hide this object and actually destroy later
             BreakToPieces(smallBrokenPrefab);
