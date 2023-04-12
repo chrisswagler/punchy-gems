@@ -20,5 +20,9 @@ public class GloveBehavior : MonoBehaviour
         {
             other.gameObject.GetComponent<IcoShapeBehavior>().HandleCollision(controller);
         }
+        else if (other.CompareTag("MenuIcoShape"))
+        {
+            other.gameObject.GetComponent<MenuIcoShapeBehavior>().HandleCollision(controller);
+        }
     }
 }

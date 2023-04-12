@@ -8,6 +8,7 @@ public class LevelManager : MonoBehaviour
     public AudioSource musicSource;
     public GameObject endUI;
     public TMP_Text scoreText;
+    public TMP_Text menuText;
 
     int score = 0;
     bool gameOver = false;
@@ -25,6 +26,12 @@ public class LevelManager : MonoBehaviour
         {
             // Update the score text
             UpdateScoreText();
+
+            // If negative score, we should end the game
+            if (score < 0)
+            {
+                GameOver();
+            }
 
             // If music is still playing, game is still active
             if (musicSource.isPlaying)
@@ -69,6 +76,16 @@ public class LevelManager : MonoBehaviour
     {
         // Set the flag
         gameOver = true;
+
+        // Update the end UI text based on the score
+        if (score < 0)
+        {
+            menuText.text = "Level Failed!";
+        }
+        else
+        {
+            menuText.text = "Level Passed!";
+        }
 
         // Display the end UI
         endUI.SetActive(true);
