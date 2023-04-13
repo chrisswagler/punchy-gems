@@ -8,6 +8,8 @@ TagManager:
   - RightController
   - IcoShape
   - MenuIcoShape
+  - Door
+  - DoorCollider
   layers:
   - Default
   - TransparentFX

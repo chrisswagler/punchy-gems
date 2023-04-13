@@ -10,5 +10,9 @@ public class BoundaryBehavior : MonoBehaviour
         {
             other.gameObject.GetComponent<IcoShapeBehavior>().DestroyGameObject();
         }
+        else if (other.CompareTag("Door"))
+        {
+            other.gameObject.GetComponent<DoorBehavior>().DestroyGameObject();
+        }
     }
 }

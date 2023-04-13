@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gemPrefab: {fileID: 1983441765415574551, guid: 1157a8caa4cd240a3acabfcca3a9488d, type: 3}
+  doorPrefab: {fileID: 2722319269712927893, guid: 58e9e33878e4b4f3ea909319250f087f, type: 3}
   playerTransform: {fileID: 0}
   buffer: 2
   groundTransform: {fileID: 0}
