@@ -13,6 +13,8 @@ public class IcoShapeBehavior : MonoBehaviour
     public int basePoints = 50;
     public DebugCanvasBehavior debugCanvas;
     public float travelSpeed = 0.1f;
+    public AudioClip correctSFX;
+    public AudioClip incorrectSFX;
 
 
     MeshRenderer _renderer;
@@ -41,10 +43,11 @@ public class IcoShapeBehavior : MonoBehaviour
         // Check if the controller is not the correct one
         if (collidingController != correctController)
         {
+            AudioSource.PlayClipAtPoint(incorrectSFX, transform.position);
             // Deduct points
             GameObject.FindObjectOfType<LevelManager>().UpdateScore(-1 * basePoints);
             Invoke("DestroyGameObject", 2.0f);
-            _rigidbody.AddForce(Vector3.up * 2, ForceMode.Impulse);
+            _rigidbody.AddForce(Vector3.up + Vector3.forward, ForceMode.Impulse);
             print("incorrect controller");
             Debug("incorrect controller");
             return;
@@ -62,13 +65,15 @@ public class IcoShapeBehavior : MonoBehaviour
         if (controllerVelocityMagnitude < 0.5)
         {
             Invoke("DestroyGameObject", 2.0f);
-            _rigidbody.AddForce(-1 * controllerVelocity, ForceMode.Impulse);
+            _rigidbody.AddForce(controllerVelocity, ForceMode.Impulse);
             return;
         }
 
         // Update points
         int points = basePoints + (int)(10 * controllerVelocityMagnitude);
         GameObject.FindObjectOfType<LevelManager>().UpdateScore(points);
+
+        AudioSource.PlayClipAtPoint(correctSFX, transform.position);
         
         // The punch was aight
         if (controllerVelocityMagnitude < 1)

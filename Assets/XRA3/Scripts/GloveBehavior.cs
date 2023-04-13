@@ -24,5 +24,9 @@ public class GloveBehavior : MonoBehaviour
         {
             other.gameObject.GetComponent<MenuIcoShapeBehavior>().HandleCollision(controller);
         }
+        else if (other.CompareTag("DoorCollider"))
+        {
+            other.gameObject.GetComponent<DoorColliderBehavior>().HandleCollision(controller);
+        }
     }
 }

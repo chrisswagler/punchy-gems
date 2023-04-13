@@ -107,6 +107,8 @@ MonoBehaviour:
   basePoints: 50
   debugCanvas: {fileID: 0}
   travelSpeed: 3
+  correctSFX: {fileID: 8300000, guid: d0fd6a9fdfa23fb4eadd8d727788226b, type: 3}
+  incorrectSFX: {fileID: 8300000, guid: b66e2317dedfd694fb3238dedfde3d79, type: 3}
 --- !u!65 &1331214583988009909
 BoxCollider:
   m_ObjectHideFlags: 0

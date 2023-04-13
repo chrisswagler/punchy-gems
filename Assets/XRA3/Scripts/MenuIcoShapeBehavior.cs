@@ -53,7 +53,8 @@ public class MenuIcoShapeBehavior : MonoBehaviour
         }
 
         BreakToPieces();
-        TriggerMenuAction();
+        // Give the pieces breaking a sec before starting
+        Invoke("TriggerMenuAction", 1.0f);
     }
 
     private void TriggerMenuAction()
